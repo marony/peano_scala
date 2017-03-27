@@ -1,5 +1,6 @@
 // https://wandbox.org/permlink/jqNHjKRonyRxYeQk
 // https://wandbox.org/permlink/UKaaA4A9GS8aaJM8
+// https://wandbox.org/permlink/rs4yrRiDnXyshbxm
 
 sealed trait Nat {
   def fold[T](f: T => T)(a: T): T
@@ -13,6 +14,12 @@ sealed trait Nat {
           case Succ(n) => rhs.plus(Zero())
           case Zero() => rhs
         }
+    }
+  
+  def minus(rhs: Nat): Nat =
+    (this, rhs) match {
+       case (Succ(m), Succ(n)) => m.minus(n)
+       case _ => this
     }
 }
 
@@ -40,4 +47,5 @@ object Main extends App {
   val three = Nat.fromInt(3)
   println(s"${two.toInt} = $two, ${three.toInt} = $three")
   println(s"${two.toInt} + ${three.toInt} = ${two.plus(three).toInt}")
+  println(s"${three.toInt} + ${two.toInt} = ${three.minus(two).toInt}")
 }
